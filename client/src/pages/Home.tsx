@@ -328,6 +328,53 @@ export default function Home() {
           </div>
         </section>
 
+        {/* SO ARBEITEN WIR ZUSAMMEN */}
+        <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/20 via-slate-900 to-slate-900"></div>
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-zusammenarbeit-title">So arbeiten wir zusammen</h2>
+              <p className="text-lg text-slate-400">Vom Erstgespräch bis zur laufenden Lösung – in drei klaren Schritten.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  step: "01",
+                  title: "Analyse & Verstehen",
+                  desc: "Im kostenlosen Erstgespräch erfasse ich deine aktuelle Situation: Welche Prozesse laufen manuell? Wo geht Zeit verloren? Was sind deine Ziele? Daraus entsteht eine klare Übersicht deiner Effizienzpotenziale.",
+                  icon: "search",
+                },
+                {
+                  step: "02",
+                  title: "Konzept & Architektur",
+                  desc: "Auf Basis der Analyse entwickle ich ein konkretes Automatisierungskonzept – inklusive Tool-Auswahl (Self-Hosted oder EU-konform), Zielarchitektur und realistischem Umsetzungsplan. Keine Theorie, sondern ein Fahrplan.",
+                  icon: "blueprint",
+                },
+                {
+                  step: "03",
+                  title: "Umsetzung & Übergabe",
+                  desc: "Die Implementierung erfolgt schrittweise in deinen bestehenden Systemen. Jeder Schritt wird dokumentiert und du erhältst eine Einweisung. Am Ende stehen messbar bessere Abläufe – keine Abhängigkeit von mir.",
+                  icon: "rocket",
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.15, duration: 0.5 }}
+                  className="relative bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 flex flex-col"
+                  data-testid={`card-step-${item.step}`}
+                >
+                  <div className="text-5xl font-bold text-primary/20 mb-4 font-heading">{item.step}</div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-slate-400 leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* FAQ */}
         <section id="faq" className="py-24 bg-white">
