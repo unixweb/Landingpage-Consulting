@@ -1,25 +1,23 @@
-# J. Hummel Consulting - Landing Page
+# KI-Beratung Landing Page
 
 ## Overview
-Landing page for Joachim Hummel's KI- und Automatisierungsberatung (AI & Automation Consulting) targeting IT consultants and SMEs in the DACH region.
+Landing page for an AI & automation consulting service targeting IT consultants and SMEs in the DACH region.
 
 ## Architecture
 - **Frontend**: React + Tailwind CSS v4 + shadcn/ui components + Framer Motion
 - **Backend**: Express.js server
 - **Routing**: wouter (frontend)
-- **Email**: Brevo (formerly Sendinblue) transactional email API
+- **Email**: Brevo transactional email API
 
 ## Key Features
 - Single-page landing page with smooth scroll navigation
 - Contact form ("Potentialanalyse") that sends structured emails via Brevo API
-  - Sender: info@businesshelpdesk.biz
-  - Recipient: jh@unixweb.de
-  - Reply-To: set to the submitter's email
+- Sender/recipient addresses are configured in `server/routes.ts`
 
 ## Project Structure
 - `client/src/pages/Home.tsx` - Main landing page component (all sections)
 - `server/routes.ts` - API route `/api/contact` for Brevo email sending
-- `shared/schema.ts` - Data schemas (currently minimal, user model only)
+- `shared/schema.ts` - Data schemas
 - `client/src/index.css` - Design system tokens (colors, typography, spacing)
 
 ## Environment Variables
