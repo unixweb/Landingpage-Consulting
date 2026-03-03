@@ -11,7 +11,39 @@ const contactSchema = z.object({
   telefon: z.string().optional().default(""),
   beschreibung: z.string().optional().default(""),
   datenschutz: z.boolean().refine((v) => v === true),
+  website: z.string().optional().default(""),
 });
+
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const RATE_LIMIT_MAX = 3;
+
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of rateLimitStore) {
+    if (now > value.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+}, 60 * 1000);
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitStore.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  entry.count++;
+  if (entry.count > RATE_LIMIT_MAX) {
+    return true;
+  }
+
+  return false;
+}
 
 export async function registerRoutes(
   httpServer: Server,
@@ -19,12 +51,25 @@ export async function registerRoutes(
 ): Promise<Server> {
 
   app.post("/api/contact", async (req, res) => {
+    const clientIp = req.ip || req.socket.remoteAddress || "unknown";
+
+    if (isRateLimited(clientIp)) {
+      return res.status(429).json({
+        message: "Zu viele Anfragen. Bitte warte 15 Minuten und versuche es erneut.",
+      });
+    }
+
     const parsed = contactSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({ message: "Bitte fülle alle Pflichtfelder korrekt aus." });
     }
 
     const data = parsed.data;
+
+    if (data.website && data.website.length > 0) {
+      return res.json({ message: "Anfrage erfolgreich gesendet." });
+    }
+
     const brevoApiKey = process.env.BREVO_API_KEY;
     if (!brevoApiKey) {
       console.error("BREVO_API_KEY is not set");

@@ -48,6 +48,7 @@ export default function Home() {
       telefon: formData.get("telefon") as string || "",
       beschreibung: formData.get("beschreibung") as string || "",
       datenschutz: datenschutzChecked,
+      website: formData.get("website") as string || "",
     };
 
     try {
@@ -548,6 +549,10 @@ export default function Home() {
                   </div>
                 ) : (
                 <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div className="absolute opacity-0 h-0 overflow-hidden pointer-events-none" aria-hidden="true" tabIndex={-1}>
+                    <label htmlFor="website">Website</label>
+                    <input type="text" id="website" name="website" autoComplete="off" tabIndex={-1} />
+                  </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="vorname">Vorname</Label>
