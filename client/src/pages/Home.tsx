@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import heroDashboard from "@assets/modernes-dashboard_1772541254918.png";
 
 export default function Home() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -134,12 +135,9 @@ export default function Home() {
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-400 rounded-2xl blur opacity-20"></div>
               <img 
-                src="/assets/images/hero-architecture.png" 
+                src={heroDashboard} 
                 alt="IT Architektur und Prozess Dashboard" 
                 className="relative rounded-2xl shadow-2xl border border-slate-200/50 w-full object-cover aspect-[4/3]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop";
-                }}
               />
             </motion.div>
           </div>
