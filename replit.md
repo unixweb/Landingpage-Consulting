@@ -12,7 +12,8 @@ Landing page for Joachim Hummel's KI- und Automatisierungsberatung (AI & Automat
 ## Key Features
 - Single-page landing page with smooth scroll navigation
 - Contact form ("Potentialanalyse") that sends structured emails via Brevo API
-  - Sender/Recipient addresses configured in `server/routes.ts`
+  - Sender: info@businesshelpdesk.biz
+  - Recipient: jh@unixweb.de
   - Reply-To: set to the submitter's email
 
 ## Project Structure
