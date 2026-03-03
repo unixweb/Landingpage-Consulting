@@ -447,6 +447,10 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
+        </div>
+
         {/* FAQ */}
         <section id="faq" className="py-24 bg-white">
           <div className="max-w-3xl mx-auto px-6">
