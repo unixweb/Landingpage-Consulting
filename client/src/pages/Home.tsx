@@ -10,7 +10,8 @@ import {
   Cpu,
   BarChart3,
   TerminalSquare,
-  Clock
+  Clock,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,8 +22,51 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 export default function Home() {
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("loading");
+    setErrorMessage("");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const datenschutzCheckbox = form.querySelector<HTMLButtonElement>("#datenschutz");
+    const datenschutzChecked = datenschutzCheckbox?.getAttribute("data-state") === "checked";
+
+    const payload = {
+      vorname: formData.get("vorname") as string,
+      nachname: formData.get("nachname") as string,
+      unternehmen: formData.get("unternehmen") as string,
+      email: formData.get("email") as string,
+      telefon: formData.get("telefon") as string || "",
+      beschreibung: formData.get("beschreibung") as string || "",
+      datenschutz: datenschutzChecked,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setFormStatus("success");
+        form.reset();
+      } else {
+        setFormStatus("error");
+        setErrorMessage(data.message || "Ein Fehler ist aufgetreten.");
+      }
+    } catch {
+      setFormStatus("error");
+      setErrorMessage("Verbindungsfehler. Bitte versuche es später erneut.");
+    }
   };
 
   return (
@@ -407,31 +451,45 @@ export default function Home() {
               </div>
 
               <div className="lg:col-span-3 p-10 md:p-12">
-                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert("Formular abgeschickt (Mockup)"); }}>
+                {formStatus === "success" ? (
+                  <div className="flex flex-col items-center justify-center text-center py-12 space-y-4" data-testid="status-success">
+                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                      <CheckCircle2 className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-900">Anfrage erfolgreich gesendet</h3>
+                    <p className="text-slate-600 max-w-md">
+                      Vielen Dank für dein Interesse. Ich melde mich zeitnah bei dir, um einen Termin für die Potentialanalyse zu vereinbaren.
+                    </p>
+                    <Button variant="outline" className="mt-4" onClick={() => setFormStatus("idle")} data-testid="button-new-request">
+                      Neue Anfrage stellen
+                    </Button>
+                  </div>
+                ) : (
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="vorname">Vorname</Label>
-                      <Input id="vorname" placeholder="Max" className="bg-slate-50 h-12" required />
+                      <Input id="vorname" name="vorname" placeholder="Max" className="bg-slate-50 h-12" required data-testid="input-vorname" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="nachname">Nachname</Label>
-                      <Input id="nachname" placeholder="Mustermann" className="bg-slate-50 h-12" required />
+                      <Input id="nachname" name="nachname" placeholder="Mustermann" className="bg-slate-50 h-12" required data-testid="input-nachname" />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="unternehmen">Unternehmen</Label>
-                    <Input id="unternehmen" placeholder="IT Consulting GmbH" className="bg-slate-50 h-12" required />
+                    <Input id="unternehmen" name="unternehmen" placeholder="IT Consulting GmbH" className="bg-slate-50 h-12" required data-testid="input-unternehmen" />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="email">E-Mail</Label>
-                      <Input id="email" type="email" placeholder="max@unternehmen.de" className="bg-slate-50 h-12" required />
+                      <Input id="email" name="email" type="email" placeholder="max@unternehmen.de" className="bg-slate-50 h-12" required data-testid="input-email" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="telefon">Telefonnummer</Label>
-                      <Input id="telefon" type="tel" placeholder="+49 123 456789" className="bg-slate-50 h-12" />
+                      <Input id="telefon" name="telefon" type="tel" placeholder="+49 123 456789" className="bg-slate-50 h-12" data-testid="input-telefon" />
                     </div>
                   </div>
 
@@ -439,13 +497,15 @@ export default function Home() {
                     <Label htmlFor="beschreibung">Kurze Beschreibung der aktuellen Herausforderung</Label>
                     <Textarea 
                       id="beschreibung" 
+                      name="beschreibung"
                       placeholder="Wo verlieren Sie aktuell am meisten Zeit?" 
                       className="bg-slate-50 min-h-[120px] resize-none"
+                      data-testid="input-beschreibung"
                     />
                   </div>
 
                   <div className="flex items-start space-x-3 pt-2">
-                    <Checkbox id="datenschutz" required className="mt-1" />
+                    <Checkbox id="datenschutz" required className="mt-1" data-testid="checkbox-datenschutz" />
                     <label
                       htmlFor="datenschutz"
                       className="text-sm text-slate-600 leading-relaxed font-medium cursor-pointer"
@@ -454,10 +514,24 @@ export default function Home() {
                     </label>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full h-14 text-lg mt-4">
-                    Potentialanalyse anfragen
+                  {formStatus === "error" && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm" data-testid="status-error">
+                      {errorMessage}
+                    </div>
+                  )}
+
+                  <Button type="submit" size="lg" className="w-full h-14 text-lg mt-4" disabled={formStatus === "loading"} data-testid="button-submit">
+                    {formStatus === "loading" ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Wird gesendet…
+                      </span>
+                    ) : (
+                      "Potentialanalyse anfragen"
+                    )}
                   </Button>
                 </form>
+                )}
               </div>
 
             </div>
