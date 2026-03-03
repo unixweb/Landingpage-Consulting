@@ -21,11 +21,15 @@ Landing Page mit Kontaktformular fuer KI- und Automatisierungsberatung.
 git clone <repository-url>
 cd <projektverzeichnis>
 npm install
+cp .env.example .env
 ```
+
+Trage anschliessend deine echten Werte in die `.env` Datei ein (siehe unten).
 
 ## Umgebungsvariablen
 
-Erstelle eine `.env` Datei im Projektroot:
+Die Anwendung liest Umgebungsvariablen automatisch aus einer `.env` Datei im Projektroot (via `dotenv`).
+Erstelle sie anhand der mitgelieferten `.env.example`:
 
 ```env
 BREVO_API_KEY=dein-brevo-api-key
