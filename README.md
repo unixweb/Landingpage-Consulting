@@ -87,9 +87,9 @@ Sendet eine Potentialanalyse-Anfrage per E-Mail.
 
 **E-Mail-Konfiguration:**
 
-- Absender: `info@businesshelpdesk.biz`
-- Empfänger: `jh@unixweb.de`
-- Reply-To: E-Mail-Adresse des Anfragenden
+Absender- und Empfängeradressen sind in `server/routes.ts` konfiguriert. Passe sie dort an deine Anforderungen an.
+
+- Reply-To: Wird automatisch auf die E-Mail-Adresse des Anfragenden gesetzt.
 
 ## Technologie-Stack
 
