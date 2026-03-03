@@ -9,7 +9,8 @@ import {
   Database,
   Cpu,
   BarChart3,
-  TerminalSquare
+  TerminalSquare,
+  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
