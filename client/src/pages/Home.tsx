@@ -328,41 +328,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SOCIAL PROOF */}
-        <section className="py-24 bg-slate-900 text-white relative">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] opacity-5 bg-cover bg-center blend-overlay"></div>
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Erfahrungen aus der Praxis</h2>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  quote: "Wir haben unseren internen Verwaltungsaufwand deutlich reduziert. Vor allem die Angebots- und Dokumentenprozesse laufen jetzt sauber und nachvollziehbar.",
-                  author: "Thomas K.",
-                  role: "IT-Consultant (25 Jahre Erfahrung)"
-                },
-                {
-                  quote: "Endlich eine strukturierte Einführung von KI ohne Datenrisiko. Keine Experimente, sondern klare Architektur.",
-                  author: "Michael S.",
-                  role: "Systemhaus (12 Mitarbeiter)"
-                },
-                {
-                  quote: "Wir sparen jede Woche mehrere Stunden pro Projektleiter durch standardisierte Workflows.",
-                  author: "Ingenieurbüro",
-                  role: "18 Mitarbeiter"
-                }
-              ].map((testimonial, idx) => (
-                <div key={idx} className="bg-slate-800/50 border border-slate-700 p-8 rounded-2xl flex flex-col justify-between">
-                  <p className="text-lg text-slate-300 italic mb-8 leading-relaxed">„{testimonial.quote}“</p>
-                  <div>
-                    <div className="font-bold text-white">{testimonial.author}</div>
-                    <div className="text-primary text-sm font-medium">{testimonial.role}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* FAQ */}
         <section id="faq" className="py-24 bg-white">
