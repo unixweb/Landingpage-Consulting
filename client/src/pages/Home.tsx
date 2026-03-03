@@ -82,6 +82,7 @@ export default function Home() {
             <a href="#problem" className="hover:text-primary transition-colors">Herausforderungen</a>
             <a href="#vorteile" className="hover:text-primary transition-colors">Vorteile</a>
             <a href="#angebot" className="hover:text-primary transition-colors">Angebot</a>
+            <a href="#ueber-mich" className="hover:text-primary transition-colors">Über mich</a>
             <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
           </div>
           <Button onClick={scrollToContact} className="font-medium">
@@ -370,6 +371,77 @@ export default function Home() {
                   <p className="text-slate-400 leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ÜBER MICH */}
+        <section id="ueber-mich" className="py-24 bg-white border-t border-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="lg:col-span-2 flex flex-col items-center lg:items-start"
+              >
+                <div className="relative mb-6">
+                  <div className="absolute -inset-2 bg-gradient-to-br from-primary/30 to-blue-400/20 rounded-2xl blur-lg opacity-60"></div>
+                  <img
+                    src="/images/joachim-hummel.png"
+                    alt="Joachim Hummel - IT Consultant"
+                    className="relative rounded-2xl shadow-xl w-72 lg:w-full object-cover border border-slate-200/50"
+                    data-testid="img-portrait"
+                  />
+                </div>
+                <div className="text-center lg:text-left">
+                  <h3 className="text-xl font-bold text-slate-900">Joachim Hummel</h3>
+                  <p className="text-primary font-medium text-sm">IT-Consultant & KI-Automatisierung</p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="lg:col-span-3"
+              >
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8" data-testid="text-ueber-mich-title">Über mich</h2>
+                <div className="space-y-5 text-lg text-slate-600 leading-relaxed">
+                  <p>
+                    Ich bin seit über 30 Jahren im IT-Umfeld tätig – vom operativen Betrieb bis zur Architektur komplexer Systeme. Als selbstständiger IT-Consultant kenne ich die Realität aus Projekten, nicht aus Lehrbüchern.
+                  </p>
+                  <p>
+                    Mein Fokus liegt auf wirtschaftlich sinnvoller KI-Automatisierung und sauberer Prozessarchitektur für IT-nahe Unternehmen und erfahrene Consultants im DACH-Raum.
+                  </p>
+                  <p className="font-medium text-slate-800">Ich unterstütze dabei,</p>
+                  <ul className="space-y-3 ml-1">
+                    {[
+                      "wiederkehrende Abläufe zu standardisieren",
+                      "manuellen Aufwand messbar zu reduzieren",
+                      "KI datensouverän und strukturiert einzusetzen",
+                      "technische Lösungen nachhaltig aufzubauen",
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="pt-4 border-t border-slate-200 space-y-4">
+                    <p>
+                      Dabei gilt: <span className="font-semibold text-slate-800">Erst Struktur, dann Technologie.</span><br/>
+                      Automatisierung muss Marge erhöhen oder Zeit freisetzen – sonst ist sie überflüssig.
+                    </p>
+                    <p>
+                      Ich arbeite klar, pragmatisch und ergebnisorientiert.<br/>
+                      Ohne Hype. Ohne unnötige Abhängigkeiten. Mit Fokus auf nachhaltigen unternehmerischen Nutzen.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
