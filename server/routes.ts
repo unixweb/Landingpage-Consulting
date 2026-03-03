@@ -53,8 +53,14 @@ export async function registerRoutes(
           "api-key": brevoApiKey,
         },
         body: JSON.stringify({
-          sender: { name: "Potentialanalyse", email: "info@businesshelpdesk.biz" },
-          to: [{ email: "jh@unixweb.de", name: "Joachim Hummel" }],
+          sender: {
+            name: process.env.CONTACT_SENDER_NAME || "Potentialanalyse",
+            email: process.env.CONTACT_SENDER_EMAIL || "noreply@example.com",
+          },
+          to: [{
+            email: process.env.CONTACT_RECIPIENT_EMAIL || "noreply@example.com",
+            name: process.env.CONTACT_RECIPIENT_NAME || "Empfaenger",
+          }],
           replyTo: { email: data.email, name: `${data.vorname} ${data.nachname}` },
           subject: `Neue Potentialanalyse-Anfrage von ${data.vorname} ${data.nachname}`,
           htmlContent,

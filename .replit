@@ -42,3 +42,11 @@ waitForPort = 5000
 [agent]
 stack = "MOCKUP_JS"
 mockupState = "FULLSTACK"
+
+[userenv]
+
+[userenv.shared]
+CONTACT_SENDER_EMAIL = "info@businesshelpdesk.biz"
+CONTACT_SENDER_NAME = "Potentialanalyse"
+CONTACT_RECIPIENT_EMAIL = "jh@unixweb.de"
+CONTACT_RECIPIENT_NAME = "Joachim Hummel"
