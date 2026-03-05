@@ -649,6 +649,10 @@ export default function Home() {
               <p>Verantwortlicher im Sinne des § 18 Abs. 2 MStV:</p>
               <p className="text-white font-medium">Joachim Hummel</p>
               <p>Lisbergstrasse 12<br/>81249 München<br/>Deutschland</p>
+              <p className="mt-2">
+                Tel: <a href="tel:+498980044390" className="text-white hover:text-primary transition-colors">+49-89-80044390</a><br/>
+                E-Mail: <a href="mailto:kontakt@joachimhummel.de" className="text-white hover:text-primary transition-colors">kontakt@joachimhummel.de</a>
+              </p>
               <p className="mt-4 pt-4 border-t border-slate-800">
                 Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br/>
                 <span className="text-white">DE185721123</span>
